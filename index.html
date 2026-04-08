@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Memberworks – YMCA of SENC Environment Overview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f4f6f9;
+    color: #1a1a2e;
+    padding-top: 56px; /* offset for sticky nav */
+  }
+
+  /* STICKY NAV */
+  .sticky-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: #001f3f;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 24px;
+    height: 56px;
+  }
+
+  .sticky-nav a {
+    color: rgba(255,255,255,0.78);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    padding: 7px 14px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background 0.18s, color 0.18s;
+  }
+
+  .sticky-nav a:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+  }
+
+  .sticky-nav a.active {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+  }
+
+  .sticky-nav .nav-divider {
+    width: 1px;
+    height: 18px;
+    background: rgba(255,255,255,0.2);
+    margin: 0 4px;
+  }
+
+  /* PAGE WRAPPER */
+  .page-wrap {
+    padding: 32px 24px 60px;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #003057 0%, #005b9f 100%);
+    padding: 48px 48px 36px;
+    color: #fff;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .logo-mark {
+    width: 48px; height: 48px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 18px; color: #003057;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+
+  .header-brand { font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; opacity: 0.75; }
+  .header h1 { font-size: 28px; font-weight: 700; line-height: 1.2; }
+  .header-sub { font-size: 15px; opacity: 0.80; margin-top: 8px; }
+
+  /* Body */
+  .body { padding: 40px 48px 56px; }
+
+  .intro {
+    font-size: 15px; line-height: 1.75; color: #444;
+    border-left: 4px solid #005b9f;
+    padding-left: 18px;
+    margin-bottom: 40px;
+  }
+
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: #888;
+    margin-bottom: 20px;
+    scroll-margin-top: 72px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .cards { display: flex; flex-direction: column; gap: 24px; margin-bottom: 44px; }
+
+  .card {
+    border-radius: 12px;
+    border: 1.5px solid #e8edf3;
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 24px;
+    border-bottom: 1.5px solid #e8edf3;
+  }
+
+  .card-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+
+  .figma .card-icon   { background: #fff0f6; }
+  .prod .card-icon    { background: #eaf6ee; }
+  .sandbox .card-icon { background: #fff7e6; }
+
+  .figma .card-header   { background: #fdf5fa; border-color: #f0c0d6; }
+  .prod .card-header    { background: #f3fbf5; border-color: #b7e4c7; }
+  .sandbox .card-header { background: #fffbf2; border-color: #fde68a; }
+
+  .figma   { border-color: #d63384; }
+  .prod    { border-color: #198754; }
+  .sandbox { border-color: #f59e0b; }
+
+  .card-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+  .figma .card-label   { color: #d63384; }
+  .prod .card-label    { color: #198754; }
+  .sandbox .card-label { color: #d97706; }
+
+  .card-name { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+  .card-body { padding: 22px 24px; }
+  .card-description { font-size: 14px; line-height: 1.7; color: #555; margin-bottom: 18px; }
+
+  .features { display: flex; flex-direction: column; gap: 8px; }
+  .feature {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 13.5px; color: #333; line-height: 1.55;
+  }
+  .feature-dot {
+    width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; flex-shrink: 0; margin-top: 1px; font-weight: 700;
+  }
+  .figma   .feature-dot { background: #f9d4e7; color: #a0195d; }
+  .prod    .feature-dot { background: #c3e6cb; color: #155724; }
+  .sandbox .feature-dot { background: #fde68a; color: #92400e; }
+
+  .badge {
+    display: inline-flex; align-items: center;
+    font-size: 11px; font-weight: 600; border-radius: 20px;
+    padding: 3px 10px; margin-top: 14px; gap: 5px;
+  }
+  .badge-figma   { background: #f9d4e7; color: #a0195d; }
+  .badge-prod    { background: #c3e6cb; color: #155724; }
+  .badge-sandbox { background: #fde68a; color: #92400e; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin-bottom: 44px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  thead tr { background: #003057; color: #fff; }
+  thead th {
+    padding: 13px 16px; text-align: left;
+    font-weight: 600; font-size: 12px; letter-spacing: 0.5px;
+  }
+  thead th:first-child { border-radius: 8px 0 0 0; }
+  thead th:last-child  { border-radius: 0 8px 0 0; }
+  tbody tr:nth-child(even) { background: #f8fafc; }
+  tbody td {
+    padding: 12px 16px; vertical-align: middle;
+    border-bottom: 1px solid #e8edf3; color: #444; line-height: 1.55;
+  }
+  tbody td:first-child { font-weight: 600; color: #1a1a2e; }
+  .comp-table tbody td:first-child { width: 22%; }
+
+  .check   { color: #198754; font-weight: 700; }
+  .cross   { color: #dc3545; font-weight: 700; }
+  .partial { color: #d97706; font-weight: 700; }
+
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 700; border-radius: 20px;
+    padding: 3px 10px; letter-spacing: 0.4px; white-space: nowrap;
+  }
+  .status-live        { background: #d1fae5; color: #065f46; }
+  .status-testing     { background: #dbeafe; color: #1e40af; }
+  .status-development { background: #fef3c7; color: #92400e; }
+  .status-pending     { background: #f1f5f9; color: #64748b; }
+
+  /* Notes */
+  .notes { display: flex; flex-direction: column; gap: 12px; margin-bottom: 44px; }
+  .note {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: #fff8f0; border: 1.5px solid #fde68a;
+    border-radius: 10px; padding: 14px 18px;
+    font-size: 13.5px; color: #444; line-height: 1.6;
+  }
+  .note-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Footer */
+  .footer {
+    border-top: 1.5px solid #e8edf3;
+    padding: 22px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: #999;
+  }
+  .footer strong { color: #003057; }
+
+  @media (max-width: 660px) {
+    .sticky-nav { justify-content: flex-start; overflow-x: auto; gap: 2px; }
+    .sticky-nav a { font-size: 11px; padding: 6px 10px; }
+    .nav-divider { display: none; }
+    .body { padding: 28px 20px 40px; }
+    .header { padding: 32px 20px 24px; }
+    .footer { padding: 18px 20px; flex-direction: column; gap: 6px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- STICKY NAV -->
+  <nav class="sticky-nav">
+    <a data-target="three-environments">The Three Environments</a>
+    <div class="nav-divider"></div>
+    <a data-target="comparison">Side-by-Side Comparison</a>
+    <div class="nav-divider"></div>
+    <a data-target="timeline">Development &amp; Implementation Timeline</a>
+    <div class="nav-divider"></div>
+    <a data-target="reminders">Important Reminders</a>
+    <div class="nav-divider"></div>
+    <a data-target="recently-published">Recently Published</a>
+  </nav>
+
+  <div class="page-wrap">
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-top">
+        <div class="logo-mark">MW</div>
+        <div>
+          <div class="header-brand">Memberworks</div>
+        </div>
+      </div>
+      <h1>Platform Environment Overview</h1>
+      <div class="header-sub">Prepared for: <strong>YMCA of Southeastern North Carolina</strong></div>
+    </div>
+
+    <!-- BODY -->
+    <div class="body">
+
+      <p class="intro">
+        As the YMCA of Southeastern North Carolina moves forward in its transition from a legacy CRM to Memberworks, you're not just changing software — you're modernizing the way your organization connects with members, manages programs, and powers your mission. To support a smooth and confident migration, Memberworks provides three distinct environments, each playing a specific role in your transformation. This document explains what each environment is, how it differs from the others, and what your team can expect along the way — so everyone always knows exactly where to work, what's ready, and what's coming next.
+      </p>
+
+      <!-- THREE ENVIRONMENTS -->
+      <div class="section-title" id="three-environments">The Three Environments</div>
+      <div class="cards">
+
+        <div class="card figma">
+          <div class="card-header">
+            <div class="card-icon">🎨</div>
+            <div>
+              <div class="card-label">Design Blueprint</div>
+              <div class="card-name">Memberworks Platform Prototype</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-description">The platform prototype is the complete visual blueprint for the Memberworks platform — the full picture of what the finished product will look like and how it will work. Think of it as the architect's master plan. Everything built in Production originates here.</p>
+            <div class="features">
+              <div class="feature"><div class="feature-dot">✦</div><span>Represents the <strong>complete, intended vision</strong> of the Memberworks platform in its entirety.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span>Serves as the <strong>primary source of truth</strong> that drives all development decisions and feature specifications.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span>Regularly updated with <strong>enhancements and new features</strong>, while its foundational structure remains ~90% intact.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span>Useful for <strong>previewing upcoming features</strong> and understanding where the platform is headed.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span><strong>Not a live, functional system</strong> — it is a visual prototype only and cannot be used for real data entry or program management.</span></div>
+            </div>
+            <span class="badge badge-figma">🎨 Design Reference Only</span>
+          </div>
+        </div>
+
+        <div class="card prod">
+          <div class="card-header">
+            <div class="card-icon">🚀</div>
+            <div>
+              <div class="card-label">Live Platform</div>
+              <div class="card-name">Memberworks Production Environment</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-description">The Production environment is your live, real-world Memberworks platform. Features are built using the platform prototype as the specification, rigorously tested by our team, and then released here. This is where your real data lives and where your members, staff, and programs will be managed day-to-day.</p>
+            <div class="features">
+              <div class="feature"><div class="feature-dot">✦</div><span>The <strong>official, live system</strong> used for real operations — member data, programs, registrations, and more.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span>Features are <strong>thoroughly QA'd by Memberworks</strong> before being released here, ensuring stability and reliability.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span>All features are developed <strong>directly from the platform prototype</strong> specifications.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span>Will <strong>continuously grow</strong> to match the full platform prototype as new features are developed and released on an ongoing basis.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span><strong>Data entry, program setup, website setup, and settings configuration</strong> begin here on <strong>June 1</strong>.</span></div>
+            </div>
+            <span class="badge badge-prod">🚀 Live Operations — Real Data</span>
+          </div>
+        </div>
+
+        <div class="card sandbox">
+          <div class="card-header">
+            <div class="card-icon">🧪</div>
+            <div>
+              <div class="card-label">Safe Practice Space</div>
+              <div class="card-name">Memberworks Sandbox Environment</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-description">The Sandbox is your team's practice playground. It mirrors the Production environment exactly, giving your staff a safe, consequence-free space to explore features, test configurations, and build confidence — without any risk to live data or real member records.</p>
+            <div class="features">
+              <div class="feature"><div class="feature-dot">✦</div><span><strong>Mirrors Production</strong> — everything available in Production is also available in Sandbox at the same time.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span>A <strong>safe, nonbreakable environment</strong> — explore, click, configure, and test without worry. Nothing here can harm your live system.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span>Ideal for <strong>staff training</strong>, testing new configurations, and learning the platform before going live.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span><strong>Important:</strong> Data entered in Sandbox does <strong>not</strong> transfer to Production. Any setup work intended for live use must be re-entered in Production.</span></div>
+              <div class="feature"><div class="feature-dot">✦</div><span>Best used for <strong>learning and experimentation</strong> — not as a staging area for Production-ready configurations.</span></div>
+            </div>
+            <span class="badge badge-sandbox">🧪 Safe Practice — No Real Data</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COMPARISON -->
+      <div class="section-title" id="comparison">Side-by-Side Comparison</div>
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Feature / Attribute</th>
+              <th>🎨 Platform Prototype</th>
+              <th>🚀 Production</th>
+              <th>🧪 Sandbox</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Purpose</td><td>Design blueprint & full platform vision</td><td>Live, day-to-day operations</td><td>Learning, testing & practice</td></tr>
+            <tr><td>Functional / Clickable</td><td><span class="partial">⚠ Visual prototype only</span></td><td><span class="check">✔ Fully functional</span></td><td><span class="check">✔ Fully functional</span></td></tr>
+            <tr><td>Real member data</td><td><span class="cross">✘ No</span></td><td><span class="check">✔ Yes — live data</span></td><td><span class="cross">✘ No — test data only</span></td></tr>
+            <tr><td>Safe to experiment in</td><td><span class="check">✔ View only</span></td><td><span class="cross">✘ Changes are live</span></td><td><span class="check">✔ Yes — no consequences</span></td></tr>
+            <tr><td>Mirrors Production</td><td><span class="partial">⚠ Future state vision</span></td><td><span class="check">✔ Is Production</span></td><td><span class="check">✔ Yes — always in sync</span></td></tr>
+            <tr><td>Data transfers to Production</td><td><span class="cross">✘ N/A</span></td><td><span class="check">✔ This is Production</span></td><td><span class="cross">✘ No — must re-enter in Production</span></td></tr>
+            <tr><td>Updated by Memberworks team</td><td><span class="check">✔ Regularly enhanced</span></td><td><span class="check">✔ As features pass QA</span></td><td><span class="check">✔ Mirrors Production updates</span></td></tr>
+            <tr><td>Use for staff training</td><td><span class="partial">⚠ Reference only</span></td><td><span class="cross">✘ Not recommended</span></td><td><span class="check">✔ Recommended</span></td></tr>
+            <tr><td>Go-live for data & setup</td><td><span class="cross">✘ N/A</span></td><td><span class="check">✔ June 1, 2026</span></td><td><span class="partial">⚠ Available now for exploration</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TIMELINE -->
+      <div class="section-title" id="timeline">Development and Implementation Timeline</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Milestone</th><th>Date Expected</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Transaction Processing</td><td>3/19/26</td><td><span class="status-badge status-live">✔ Live</span></td></tr>
+            <tr><td>Email / Text</td><td>3/19/26</td><td><span class="status-badge status-live">✔ Live</span></td></tr>
+            <tr><td>Phase 1 Website</td><td>3/19/26</td><td><span class="status-badge status-live">✔ Live</span></td></tr>
+            <tr><td>Prerequisites</td><td>3/19/26</td><td><span class="status-badge status-live">✔ Live</span></td></tr>
+            <tr><td>Basic Program Creation</td><td>3/19/26</td><td><span class="status-badge status-live">✔ Live</span></td></tr>
+            <tr><td>All Membership Features</td><td>4/30/26</td><td><span class="status-badge status-development">⚙ In Development</span></td></tr>
+            <tr><td>GLs</td><td>5/15/26</td><td><span class="status-badge status-testing">🔍 In Testing</span></td></tr>
+            <tr><td>Afterschool Registration — Completion</td><td>5/15/26</td><td><span class="status-badge status-testing">🔍 In Testing</span></td></tr>
+            <tr><td>Incident Reporting</td><td>5/15/26</td><td><span class="status-badge status-development">⚙ In Development</span></td></tr>
+            <tr><td>Financial Aid &amp; Discount Groups Module</td><td>5/15/26</td><td><span class="status-badge status-testing">🔍 In Testing</span></td></tr>
+            <tr><td>Incident Reporting — Launch</td><td>6/1/26</td><td><span class="status-badge status-pending">⏳ Pending</span></td></tr>
+            <tr><td>Afterschool Registration — Launch</td><td>6/30/26</td><td><span class="status-badge status-pending">⏳ Pending</span></td></tr>
+            <tr><td>RSO Completion</td><td>7/1/26</td><td><span class="status-badge status-development">⚙ In Development</span></td></tr>
+            <tr><td>Volunteer Management Module — Completion</td><td>7/15/26</td><td><span class="status-badge status-development">⚙ In Development</span></td></tr>
+            <tr><td>All Marketing / Communication Features</td><td>8/1/26</td><td><span class="status-badge status-development">⚙ In Development</span></td></tr>
+            <tr><td>Entire Camp Health Module</td><td>8/2/26</td><td><span class="status-badge status-development">⚙ In Development</span></td></tr>
+            <tr><td>Winter Sports Registration — Launch</td><td>8/30/26</td><td><span class="status-badge status-development">⚙ In Development</span></td></tr>
+            <tr><td>Entirety of Program Management</td><td>8/30/26</td><td><span class="status-badge status-development">⚙ In Development</span></td></tr>
+            <tr><td>Volunteer Management — Launch</td><td>10/1/26</td><td><span class="status-badge status-pending">⏳ Pending</span></td></tr>
+            <tr><td>Camp Kirkwood — Launch</td><td>11/30/26</td><td><span class="status-badge status-pending">⏳ Pending</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- IMPORTANT REMINDERS -->
+      <div class="section-title" id="reminders">Important Reminders</div>
+      <div class="notes">
+        <div class="note"><div class="note-icon">📅</div><span><strong>June 1, 2026 is go-live day.</strong> Data entry, program setup, website configuration, and settings will begin in the Production environment on this date. Use the Sandbox before then to get comfortable with the platform.</span></div>
+        <div class="note"><div class="note-icon">⚠️</div><span><strong>Sandbox data does not carry over.</strong> Any work done in the Sandbox — programs created, settings configured, data entered — stays in the Sandbox. Real setup work must be performed directly in Production.</span></div>
+        <div class="note"><div class="note-icon">🔄</div><span><strong>The platform prototype evolves.</strong> Our team regularly adds enhancements and new feature designs to the platform prototype. Its foundational structure (~90%) remains consistent, but expect to see new additions as our platform vision expands.</span></div>
+        <div class="note"><div class="note-icon">🏗️</div><span><strong>Production is a work in progress — by design.</strong> Not every feature in the platform prototype is available in Production yet. This is expected. New features are released continuously as they are built and QA'd. Refer to the timeline above for specifics.</span></div>
+      </div>
+
+      <!-- RECENTLY PUBLISHED -->
+      <div class="section-title" id="recently-published">Recently Published</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Item</th><th>Status</th><th>Publish Date</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Financial Aid</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>Reporting</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>Checkout Screen Updates</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>Abandoned Cart</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>GL Coding</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>Registration Confirmation Emails</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>Billing (Outstanding Payments, Refunds, Discounting)</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>Waitlist</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>Discounts / Promotions</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>Add-Ons</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>Refund Approval Management</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>DWS Processing</td><td><span class="status-badge status-live">✔ Completed</span></td><td>4/6/2026</td></tr>
+            <tr><td>Credit Card Acceptance</td><td><span class="status-badge status-live">✔ Completed</span></td><td>—</td></tr>
+            <tr><td>Registration Summer</td><td><span class="status-badge status-live">✔ Completed</span></td><td>—</td></tr>
+            <tr><td>Prerequisite Forms</td><td><span class="status-badge status-live">✔ Completed</span></td><td>—</td></tr>
+            <tr><td>Billing (View Transactions)</td><td><span class="status-badge status-testing">🔍 In Testing</span></td><td>4/8/2026</td></tr>
+            <tr><td>Registration SY</td><td><span class="status-badge status-development">⚙ In Progress</span></td><td>4/15/2026</td></tr>
+            <tr><td>Pricing Tiers</td><td><span class="status-badge status-development">⚙ In Progress</span></td><td>4/15/2026</td></tr>
+            <tr><td>Donation Add-ons</td><td><span class="status-badge status-development">⚙ In Progress</span></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- end .body -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div>Prepared by <strong>Memberworks</strong> for YMCA of Southeastern North Carolina</div>
+      <div>April 2026 · Confidential</div>
+    </div>
+
+  </div><!-- end .page -->
+  </div><!-- end .page-wrap -->
+
+  <script>
+    const navLinks = document.querySelectorAll('.sticky-nav a');
+    const navBar = document.querySelector('.sticky-nav');
+
+    navLinks.forEach(link => {
+      link.style.cursor = 'pointer';
+      link.addEventListener('click', function() {
+        const target = document.getElementById(this.getAttribute('data-target'));
+        if (target) {
+          const top = target.getBoundingClientRect().top + window.scrollY - navBar.offsetHeight - 12;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Highlight active nav item on scroll
+    const sections = document.querySelectorAll('.section-title[id]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const active = document.querySelector(`.sticky-nav a[data-target="${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-10% 0px -80% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
